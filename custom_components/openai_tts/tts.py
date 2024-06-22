@@ -40,7 +40,7 @@ class OpenAITTSEntity(TextToSpeechEntity):
         self._engine = engine
         self._config = config
         self._attr_unique_id = f"{config.data[CONF_VOICE]}_{config.data[CONF_MODEL]}"
-        self.entity_id = generate_entity_id("tts.openai_tts_{}", config.data[CONF_VOICE], hass=hass)
+        self.entity_id = generate_entity_id("tts.openai_tts_compat_{}", config.data[CONF_VOICE], hass=hass)
 
     @property
     def default_language(self):
