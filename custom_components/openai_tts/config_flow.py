@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigFlow
 from homeassistant.helpers.selector import selector
 from homeassistant.exceptions import HomeAssistantError
 
-from .const import CONF_API_KEY, CONF_MODEL, CONF_VOICE, CONF_SPEED, DOMAIN, MODELS, VOICES
+from .const import CONF_API_KEY, CONF_MODEL, CONF_VOICE, CONF_SPEED, CONF_URL, DOMAIN, MODELS, VOICES
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,6 +35,7 @@ class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for OpenAI TTS."""
     VERSION = 1
     data_schema = vol.Schema({
+        vol.Optional(CONF_URL, default="https://api.openai.com/v1/audio/speech"): str,
         vol.Required(CONF_API_KEY): str,
         vol.Optional(CONF_SPEED, default=1.0): vol.Coerce(float),
         vol.Required(CONF_MODEL, default="tts-1"): selector({
