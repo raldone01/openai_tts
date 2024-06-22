@@ -1,8 +1,5 @@
 import requests
 
-from .const import URL
-
-
 class OpenAITTSEngine:
 
     def __init__(self, voice: str, model: str, speed: int, url: str):
