@@ -13,19 +13,8 @@ from .const import CONF_API_KEY, CONF_MODEL, CONF_VOICE, CONF_SPEED, CONF_URL, D
 
 _LOGGER = logging.getLogger(__name__)
 
-class WrongAPIKey(HomeAssistantError):
-    """Error to indicate no or wrong API key."""
-
-async def validate_api_key(api_key: str):
-    """Validate the API key format."""
-    if api_key is None:
-        raise WrongAPIKey("API key is required")
-    if not (51 <= len(api_key) <= 70):
-        raise WrongAPIKey("Invalid API key length")
-
 async def validate_user_input(user_input: dict):
     """Validate user input fields."""
-    await validate_api_key(user_input.get(CONF_API_KEY))
     if user_input.get(CONF_MODEL) is None:
         raise ValueError("Model is required")
     if user_input.get(CONF_VOICE) is None:
@@ -36,7 +25,6 @@ class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
     VERSION = 1
     data_schema = vol.Schema({
         vol.Optional(CONF_URL, default="https://api.openai.com/v1/audio/speech"): str,
-        vol.Required(CONF_API_KEY): str,
         vol.Optional(CONF_SPEED, default=1.0): vol.Coerce(float),
         vol.Required(CONF_MODEL, default="tts-1"): selector({
             "select": {
@@ -69,7 +57,6 @@ class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
                 return self.async_abort(reason="already_configured")
             except HomeAssistantError as e:
                 _LOGGER.exception(str(e))
-                errors["api_key"] = "wrong_api_key"
             except ValueError as e:
                 _LOGGER.exception(str(e))
                 errors["base"] = str(e)
