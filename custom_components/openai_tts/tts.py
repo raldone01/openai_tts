@@ -21,7 +21,6 @@ async def async_setup_entry(
 ) -> None:
     """Set up OpenAI Text-to-speech platform via config entry."""
     engine = OpenAITTSEngine(
-        config_entry.data[CONF_API_KEY],
         config_entry.data[CONF_VOICE],
         config_entry.data[CONF_MODEL],
         config_entry.data[CONF_SPEED],
