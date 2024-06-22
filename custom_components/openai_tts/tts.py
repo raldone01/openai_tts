@@ -74,7 +74,7 @@ class OpenAITTSEntity(TextToSpeechEntity):
             speech = self._engine.get_tts(message)
 
             # The response should contain the audio file content
-            return "mp3", speech.content
+            return "wav", speech.content
         except MaxLengthExceeded:
             _LOGGER.error("Maximum length of the message exceeded")
         except Exception as e:
