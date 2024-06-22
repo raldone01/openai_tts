@@ -57,8 +57,7 @@ class OpenAITTSEntity(TextToSpeechEntity):
         return {
             "identifiers": {(DOMAIN, self._attr_unique_id)},
             "model": f"{self._config.data[CONF_VOICE]}",
-            "manufacturer": "OpenAI-compatible",
-            "endpoint": f"{self._config.data[CONF_URL]}",
+            "manufacturer": "OpenAI-compatible"
         }
 
     @property
