@@ -52,7 +52,7 @@ class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
                 await validate_user_input(user_input)
                 await self.async_set_unique_id(f"{user_input[CONF_VOICE]}_{user_input[CONF_MODEL]}")
                 self._abort_if_unique_id_configured()
-                return self.async_create_entry(title="OpenAI TTS", data=user_input)
+                return self.async_create_entry(title="OpenAI TTS Compatible", data=user_input)
             except data_entry_flow.AbortFlow:
                 return self.async_abort(reason="already_configured")
             except HomeAssistantError as e:
