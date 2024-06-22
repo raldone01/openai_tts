@@ -17,7 +17,7 @@ class OpenAITTSEngine:
             "response_format": "wav",
             "speed": self._speed
         }
-        return requests.post(self._url, headers=headers, json=data)
+        return requests.post(self._url, json=data)
 
     @staticmethod
     def get_supported_langs() -> list:
