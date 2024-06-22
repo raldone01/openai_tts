@@ -7,7 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity import generate_entity_id
-from .const import CONF_API_KEY, CONF_MODEL, CONF_SPEED, CONF_VOICE, DOMAIN
+from .const import CONF_API_KEY, CONF_MODEL, CONF_SPEED, CONF_VOICE, CONF_URL, DOMAIN
 from .openaitts_engine import OpenAITTSEngine
 from homeassistant.exceptions import MaxLengthExceeded
 
@@ -25,6 +25,7 @@ async def async_setup_entry(
         config_entry.data[CONF_VOICE],
         config_entry.data[CONF_MODEL],
         config_entry.data[CONF_SPEED],
+        config_entry.data[CONF_URL]
     )
     async_add_entities([OpenAITTSEntity(hass, config_entry, engine)])
 
@@ -57,7 +58,8 @@ class OpenAITTSEntity(TextToSpeechEntity):
         return {
             "identifiers": {(DOMAIN, self._attr_unique_id)},
             "model": f"{self._config.data[CONF_VOICE]}",
-            "manufacturer": "OpenAI"
+            "manufacturer": "OpenAI-compatible",
+            "endpoint": f"{self._config.data[CONF_URL]}",
         }
 
     @property
