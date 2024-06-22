@@ -10,7 +10,13 @@ class OpenAITTSEngine:
 
     def get_tts(self, text: str):
         """ Makes request to OpenAI TTS engine to convert text into audio"""
-        data: dict = {"model": self._model, "input": text, "voice": self._voice, "speed": self._speed}
+        data: dict = {
+            "model": self._model,
+            "input": text,
+            "voice": self._voice,
+            "response_format": "wav",
+            "speed": self._speed
+        }
         return requests.post(self._url, headers=headers, json=data)
 
     @staticmethod
