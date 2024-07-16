@@ -26,8 +26,8 @@ async def validate_user_input(user_input: dict):
     if user_input.get(CONF_VOICE) is None:
         raise ValueError("Voice is required")
 
-class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for OpenAI TTS."""
+class OpenAISpeechConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for OpenAI Speech."""
     VERSION = 1
     data_schema = vol.Schema({
         vol.Optional(CONF_API_KEY): str,
@@ -62,7 +62,7 @@ class OpenAITTSConfigFlow(ConfigFlow, domain=DOMAIN):
                 await self.async_set_unique_id(unique_id)
                 self._abort_if_unique_id_configured()
                 hostname = urlparse(user_input[CONF_URL]).hostname
-                return self.async_create_entry(title=f"OpenAI TTS ({hostname}, {user_input[CONF_MODEL]}, {user_input[CONF_VOICE]})", data=user_input)
+                return self.async_create_entry(title=f"OpenAI Speech TTS ({hostname}, {user_input[CONF_MODEL]}, {user_input[CONF_VOICE]})", data=user_input)
             except data_entry_flow.AbortFlow:
                 return self.async_abort(reason="already_configured")
             except HomeAssistantError as e:
